@@ -5,7 +5,8 @@ class SetMetadataString:
     Set a single custom metadata field and optionally update 'parameters' field in png metadata
     """
     CATEGORY = "utils"
-    RETURN_TYPES = ()
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("output", )
     OUTPUT_NODE = True
     FUNCTION = "process"
 
@@ -28,7 +29,7 @@ class SetMetadataString:
             extra_pnginfo[name] = value
             if self.SET_PARAMETERS and name != "parameters":
                 extra_pnginfo["parameters"] = self.update_parameters(extra_pnginfo.get("parameters", ""), name, value)
-        return (None,)
+        return (value,)
 
     def update_parameters(self, params_string: str, name: str, value: str) -> str:
         """Modify the a1111 compatible (mostly) parameters string to include the new parameter
